@@ -1,13 +1,10 @@
-import Vue from 'vue';
-import Vuex from 'vuex';
+import { createStore } from 'vuex';
 import createPersistedState from 'vuex-persistedstate';
 import Team from '@/models/team';
 import Task from '@/models/task';
 import TeamTask from '@/models/teamTask';
 
-Vue.use(Vuex);
-
-const store = new Vuex.Store({
+const store = createStore({
     plugins: [createPersistedState({ paths: ['showPonies'] })],
     state: {
         round: 0,

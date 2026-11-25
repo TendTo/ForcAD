@@ -5,7 +5,7 @@
         :team-clickable="true"
         :tasks="tasks"
         :teams="teams"
-        @openTeam="openTeam"
+        @open-team="openTeam"
     />
 </template>
 

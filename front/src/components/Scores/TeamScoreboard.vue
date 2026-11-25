@@ -153,7 +153,7 @@ export default {
                         ),
                 });
             }
-        } catch (e) {
+        } catch {
             this.error = "Can't connect to server";
         }
     },

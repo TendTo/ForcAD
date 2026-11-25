@@ -6,10 +6,10 @@
         :admin="true"
         :tasks="tasks"
         :teams="teams"
-        @openTeam="openTeam"
-        @openTeamAdmin="openTeamAdmin"
-        @openTaskAdmin="openTaskAdmin"
-        @openTeamTaskHistory="openTeamTaskHistory"
+        @open-team="openTeam"
+        @open-team-admin="openTeamAdmin"
+        @open-task-admin="openTaskAdmin"
+        @open-team-task-history="openTeamTaskHistory"
     />
 </template>
 

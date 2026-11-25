@@ -1,5 +1,5 @@
-import Vue from 'vue';
-import VueRouter from 'vue-router';
+import axios from 'axios';
+import { createRouter, createWebHistory } from 'vue-router';
 
 import { serverUrl } from '@/config';
 
@@ -12,8 +12,6 @@ const AdminScoreboard = () => import('@/views/AdminScoreboard.vue');
 const TaskAdmin = () => import('@/views/TaskAdmin.vue');
 const TeamAdmin = () => import('@/views/TeamAdmin.vue');
 const AdminTeamTaskLog = () => import('@/views/AdminTeamTaskLog.vue');
-
-Vue.use(VueRouter);
 
 const routes = [
     {
@@ -89,28 +87,21 @@ const routes = [
     },
 ];
 
-const router = new VueRouter({
-    mode: 'history',
-    base: '/',
+const router = createRouter({
+    history: createWebHistory('/'),
     routes,
 });
 
-router.beforeEach(async function (to, from, next) {
-    if (to.meta.auth) {
-        let ok = false;
-        try {
-            await router.$http.get(`${serverUrl}/api/admin/status/`);
-            ok = true;
-        } catch (e) {
-            next({
-                name: 'adminLogin',
-            });
-        }
-        if (ok) {
-            next();
-        }
-    } else {
-        next();
+router.beforeEach(async (to) => {
+    if (!to.meta.auth) {
+        return true;
+    }
+
+    try {
+        await axios.get(`${serverUrl}/api/admin/status/`);
+        return true;
+    } catch {
+        return { name: 'adminLogin' };
     }
 });
 

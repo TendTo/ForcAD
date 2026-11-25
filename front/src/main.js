@@ -1,4 +1,4 @@
-import Vue from 'vue';
+import { createApp } from 'vue';
 import App from './App.vue';
 import router from './router';
 import axios from 'axios';
@@ -7,20 +7,16 @@ import { apiUrl } from '@/config';
 import DefaultLayout from '@/layouts/DefaultLayout.vue';
 import EmptyLayout from '@/layouts/EmptyLayout.vue';
 
-Vue.config.productionTip = false;
-
 axios.defaults.baseURL = apiUrl;
 axios.defaults.withCredentials = true;
 
-Vue.prototype.$http = axios;
-router.$http = axios;
+const app = createApp(App);
+app.config.globalProperties.$http = axios;
 store.$http = axios;
 
-Vue.component('DefaultLayout', DefaultLayout);
-Vue.component('EmptyLayout', EmptyLayout);
+app.component('DefaultLayout', DefaultLayout);
+app.component('EmptyLayout', EmptyLayout);
 
-new Vue({
-    router,
-    store,
-    render: (h) => h(App),
-}).$mount('#app');
+app.use(router);
+app.use(store);
+app.mount('#app');

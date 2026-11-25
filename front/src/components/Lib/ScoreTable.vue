@@ -12,13 +12,13 @@
                     :key="name"
                     :style="taskStyle"
                     class="service-cell"
-                    @click="$emit('openTask', id)"
+                    @click="$emit('open-task', id)"
                 >
                     {{ name }}
                     <button
                         v-if="admin"
                         class="edit"
-                        @click="$emit('openTaskAdmin', id)"
+                        @click="$emit('open-task-admin', id)"
                     >
                         <i class="fas fa-edit" />
                     </button>
@@ -60,7 +60,7 @@
                             teamStyle,
                             { backgroundColor: getTeamRowBackground(index) },
                         ]"
-                        @click="$emit('openTeam', id)"
+                        @click="$emit('open-team', id)"
                     >
                         <div class="team-name">
                             {{ name }}
@@ -71,7 +71,7 @@
                         <button
                             v-if="admin"
                             class="edit"
-                            @click="$emit('openTeamAdmin', id)"
+                            @click="$emit('open-team-admin', id)"
                             @click.stop
                         >
                             <i class="fas fa-edit" />
@@ -110,7 +110,7 @@
                             v-if="admin"
                             class="tt-edit"
                             @click="
-                                $emit('openTeamTaskHistory', teamId, taskId)
+                                $emit('open-team-task-history', teamId, taskId)
                             "
                         >
                             <i class="fas fa-edit" />
@@ -160,6 +160,14 @@ export default {
         taskClickable: Boolean,
         admin: Boolean,
     },
+
+    emits: [
+        'open-task',
+        'open-task-admin',
+        'open-team',
+        'open-team-admin',
+        'open-team-task-history',
+    ],
 
     data: function () {
         return {

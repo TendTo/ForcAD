@@ -1,12 +1,6 @@
-let url = '';
-
-if (import.meta.env.DEV) {
-    url = 'http://127.0.0.1:8080';
-} else {
-    url = window.location.origin;
-}
-
-const serverUrl = url;
+const serverUrl = import.meta.env.DEV
+    ? 'http://127.0.0.1:8080'
+    : window.location.origin;
 const apiUrl = `${serverUrl}/api`;
 
 const statuses = [101, 102, 103, 104, 110];
