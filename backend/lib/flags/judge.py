@@ -1,6 +1,5 @@
+from threading import Thread
 from typing import List
-
-import eventlet
 
 from lib import storage
 from lib.models import AttackResult
@@ -12,8 +11,8 @@ class Judge:
     def __init__(self, monitor: SubmitMonitor, logger):
         self._monitor = monitor
         self._notifier = Notifier(logger=logger)
-        eventlet.spawn_n(self._monitor)
-        eventlet.spawn_n(self._notifier)
+        Thread(target=self._monitor, daemon=True).start()
+        Thread(target=self._notifier, daemon=True).start()
 
     def _process_attack(self, team_id: int, flag: str) -> AttackResult:
         current_round = storage.game.get_real_round()

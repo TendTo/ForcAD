@@ -34,7 +34,7 @@ def load_basic_config() -> models.BasicConfig:
     raw = load_raw_config(constants.CONFIG_PATH)
 
     try:
-        config = models.BasicConfig.model_validate(raw, strict=True)
+        config = models.BasicConfig.model_validate(raw)
     except ValidationError as e:
         print_error(f'Invalid configuration file: {e}')
         sys.exit(1)
@@ -47,7 +47,7 @@ def load_config() -> models.Config:
     raw = load_raw_config(constants.CONFIG_PATH)
 
     try:
-        config = models.Config.parse_obj(raw)
+        config = models.Config.model_validate(raw)
     except ValidationError as e:
         print_error(f'Invalid configuration file: {e}')
         sys.exit(1)

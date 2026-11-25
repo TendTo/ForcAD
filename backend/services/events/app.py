@@ -16,7 +16,7 @@ CORS(
 sio_manager = storage.utils.SIOManager.read_write()
 sio = SocketIO(
     app=app,
-    async_mode='eventlet',
+    async_mode='threading',
     client_manager=sio_manager,
     path='socket.io',
     cors_allowed_origins='*',
